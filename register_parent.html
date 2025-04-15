@@ -64,6 +64,21 @@
             <i class="fas fa-arrow-left mr-2"></i> Retour à la page d'inscription
         </a>
     </div>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            console.log('Nom:', nom, 'Prenom:', prenom);
+    
+            // تأكد من أن جميع الحقول مملوءة قبل الإرسال
+            if (!nom || !prenom) {
+                event.preventDefault();  // منع إرسال النموذج إذا كانت الحقول فارغة
+                alert('يرجى ملء جميع الحقول.');
+            }
+        });
+    </script>
+    
    
        
 </body>
