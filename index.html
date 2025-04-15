@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Vaccination Infantile</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header >
+       
+        <div class="logo">Vaccination Infantile</div>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#conditions">Conditions</a></li>
+                <li><a href="#importance">Importance</a></li>
+                <li><a href="#vaccins">Vaccin</a></li>
+                <li><a href="login.html" class="btn">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Assurez la protection de votre enfant grâce à un suivi vaccinal intelligent !</h1>
+            <p>Une solution facile pour suivre les vaccinations et recevoir des rappels.</p>
+           <a href="signup.html" class="btn">S'inscrire maintenant</a></a>
+        </div>
+        
+    </section>
+    
+    <section id="features" class="features">
+        <h2>Nos Fonctionnalités</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <img src="images/calendar-icon.png" alt="Calendrier">
+                <p>📅 Suivi des vaccins</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/reminder-icon.png" alt="Rappel">
+                <p>🔔 Rappels automatiques</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/doctor-icon.png" alt="Médecin">
+                <p>🩺 Accès pour médecins</p>
+            </div>
+            <div class="feature-item">
+                <img src="images/security-icon.png" alt="Sécurité">
+                <p>🔐 Sécurité des données</p>
+            </div>
+        </div>
+    </section>
+    <section id="conditions" class="conditions">
+        <h2>Conditions de Vaccination</h2>
+        <p>Pour garantir l'efficacité et la sécurité des vaccins, certaines conditions doivent être respectées :</p>
+        <ul>
+            <li>✔️ L'enfant doit être en bonne santé au moment de la vaccination.</li>
+            <li>✔️ Respect des délais entre les doses pour une protection optimale.</li>
+            <li>✔️ Vérification des antécédents médicaux et des allergies éventuelles.</li>
+            <li>✔️ Utilisation de vaccins certifiés et conservés dans des conditions optimales.</li>
+        </ul>
+    </section>
+    
+    <section id="importance" class="importance">
+        <h2>Pourquoi la Vaccination est-elle Importante ?</h2>
+        <p>La vaccination infantile joue un rôle clé dans la protection de la santé publique :</p>
+        <ul>
+            <li>🛡️ Protège contre des maladies graves comme la rougeole, la polio et la diphtérie.</li>
+            <li>👶 Renforce le système immunitaire des enfants dès leur plus jeune âge.</li>
+            <li>🌍 Contribue à l'éradication de maladies grâce à l'immunité collective.</li>
+            <li>❤️ Réduit les risques de complications graves et de mortalité infantile.</li>
+        </ul>
+        
+    </section>
+    <section id="vaccins" class="vaccins">
+    <h3>Les principaux vaccins et âges recommandés</h3>
+        <table>
+            <tr>
+                <th>Âge</th>
+                <th>Vaccin</th>
+            </tr>
+            <tr>
+                <td>2 mois</td>
+                <td>DTaP, Polio, Hépatite B, Pneumocoque</td>
+            </tr>
+            <tr>
+                <td>4 mois</td>
+                <td>Rappel DTaP, Polio, Pneumocoque</td>
+            </tr>
+            <tr>
+                <td>12 mois</td>
+                <td>Rougeole, Oreillons, Rubéole (ROR)</td>
+            </tr>
+        </table>
+    </section>
+    <footer>
+        <p>&copy; 2025 Vaccination Infantile. Tous droits réservés.</p>
+    </footer>
+
+    <button id="backToTop" class="back-to-top">⬆ Retour en haut</button>
+
+    <script>
+        document.getElementById("backToTop").addEventListener("click", function() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+</body>
+</html>
