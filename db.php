@@ -1,14 +1,14 @@
 <?php
-$servername = "localhost"; // Adresse du serveur MySQL
-$username = "root";        // Nom d'utilisateur MySQL
-$password = "";            // Mot de passe MySQL
-$dbname = "vaccination_infantile"; // Nom de la base de données
+$host = 'localhost';
+$db   = 'vaccins'; // اسم قاعدة البيانات في PostgreSQL
+$user = 'postgres';
+$pass = 'postgre14'; // ضع كلمة مرور PostgreSQL هنا
+$port = '5432'; // المنفذ الافتراضي
 
-// Créer une connexion
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérifier la connexion
-if ($conn->connect_error) {
-    die("Connexion échouée : " . $conn->connect_error);
+try {
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
 }
 ?>

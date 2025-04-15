@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Espace Parent - VacciKids</title>
+
+  <!-- ✅ Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="script.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ✅ Optional custom styles -->
+  <style>
+    .status-badge {
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      color: #fff;
+    }
+
+    .status-jour {
+      background-color: #198754;
+    }
+
+    .status-retard {
+      background-color: #dc3545;
+    }
+
+    .status-planifier {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      background: #e0e0e0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <header class="bg-[#4A90E2] py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <!-- Logo -->
+      <div class="logo text-white text-3xl font-semibold">Vaccination Infantile</div>
+
+      <!-- Navbar -->
+      <nav class="hidden md:flex space-x-6">
+        <ul class="flex space-x-6">
+          <li><a href="#accueil" class="text-white hover:text-gray-300">Accueil</a></li>
+          <li><a href="#features" class="text-white hover:text-gray-300">Fonctionnalités</a></li>
+          <li><a href="#conditions" class="text-white hover:text-gray-300">Conditions</a></li>
+          <li><a href="#importance" class="text-white hover:text-gray-300">Importance</a></li>
+          <li><a href="#vaccins" class="text-white hover:text-gray-300">Vaccin</a></li>
+          <li><a href="enfantstatic.html" class="text-white hover:text-gray-300">Static</a></li>
+          <li><a href="login.html"
+              class="bg-white text-[#4A90E2] px-4 py-2 rounded-full hover:bg-gray-100">Connexion</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button id="mobile-menu-button" class="text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-[#4A90E2] text-white py-4">
+      <ul class="space-y-4 px-4">
+        <li><a href="#accueil" class="block hover:text-gray-300">Accueil</a></li>
+        <li><a href="#features" class="block hover:text-gray-300">Fonctionnalités</a></li>
+        <li><a href="#conditions" class="block hover:text-gray-300">Conditions</a></li>
+        <li><a href="#importance" class="block hover:text-gray-300">Importance</a></li>
+        <li><a href="#vaccins" class="block hover:text-gray-300">Vaccin</a></li>
+        <li><a href="login.html"
+            class="block bg-white text-[#4A90E2] px-4 py-2 rounded-full hover:bg-gray-100">Connexion</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container py-4">
+    <!-- Parent Info -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Marie Dupont</h5>
+        <p class="card-text">Rôle : Parent</p>
+        <p class="card-text text-muted">3 enfants enregistrés • Dernier accès : 12/04/2024</p>
+        <button class="btn btn-outline-primary">Actualiser</button>
+      </div>
+    </div>
+
+    <!-- Children Cards -->
+    <h4>Mes enfants</h4>
+    <div class="row" id="childrenContainer"></div>
+
+    <!-- Upcoming Vaccinations -->
+    <h4 class="mt-5">Vaccinations à venir</h4>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Prochains rendez-vous</h5>
+        <div id="upcomingVaccinationsContainer"></div>
+        <div class="text-center mt-3">
+          <button class="btn btn-outline-secondary">Voir toutes les vaccinations</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-top py-3 text-center mt-5">
+    © 2024 VacciKids - Application de suivi de vaccination infantile
+  </footer>
+
+  <!-- ✅ Bootstrap JS (for components if needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ✅ JavaScript for dynamic content -->
+  <script>
+    const children = [
+      { name: "Lucas Dupont", age: "18 mois", birthDate: "12/10/2022", status: "jour", progress: 57 },
+      { name: "Emma Dupont", age: "4 ans", birthDate: "05/03/2020", status: "retard", progress: 82 },
+      { name: "Noah Dupont", age: "7 ans", birthDate: "21/07/2017", status: "planifier", progress: 95 },
+    ];
+
+    const upcomingVaccinations = [
+      { childName: "Emma", vaccine: "Rappel DTPolio", dueDate: "15 Avril 2024", status: "retard" },
+      { childName: "Noah", vaccine: "Méningocoque C", dueDate: "03 Mai 2024", status: "planifier" },
+      { childName: "Lucas", vaccine: "Pneumocoque", dueDate: "28 Avril 2024", status: "planifier" },
+    ];
+
+    const childrenContainer = document.getElementById("childrenContainer");
+    children.forEach(child => {
+      const statusClass = {
+        "jour": "status-badge status-jour",
+        "retard": "status-badge status-retard",
+        "planifier": "status-badge status-planifier"
+      }[child.status];
+
+      childrenContainer.innerHTML += `
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body d-flex">
+              <div class="avatar me-3">👶</div>
+              <div>
+                <h5>${child.name}</h5>
+                <p class="mb-1">${child.age} • Né le ${child.birthDate}</p>
+                <span class="${statusClass}">${child.status.replace('jour', 'à jour')}</span>
+                <p class="mt-2">Protection à ${child.progress}%</p>
+                <div class="mt-2">
+                  <button class="btn btn-sm btn-outline-secondary me-2">Voir détails</button>
+                  <button class="btn btn-sm btn-primary">Calendrier</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    const upcomingVaccinationsContainer = document.getElementById("upcomingVaccinationsContainer");
+    upcomingVaccinations.forEach(item => {
+      const statusClass = {
+        "retard": "status-badge status-retard",
+        "planifier": "status-badge status-planifier"
+      }[item.status];
+
+      const btnClass = item.status === "retard" ? "btn btn-primary" : "btn btn-outline-primary";
+
+      upcomingVaccinationsContainer.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+          <div>
+            <span class="${statusClass}">${item.status.replace('jour', 'à jour')}</span>
+            <p class="mb-0"><strong>${item.vaccine}</strong> - Pour ${item.childName} • ${item.dueDate}</p>
+          </div>
+          <button class="${btnClass} btn-sm">Planifier</button>
+        </div>
+      `;
+    });
+  </script>
+</body>
+
+</html>
