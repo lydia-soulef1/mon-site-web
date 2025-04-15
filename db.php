@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db   = 'vaccins'; // اسم قاعدة البيانات في PostgreSQL
 $user = 'postgres';
-$pass = 'postgre14'; // ضع كلمة مرور PostgreSQL هنا
+$pass = 'lydialydia7@'; // ضع كلمة مرور PostgreSQL هنا
 $port = '5432'; // المنفذ الافتراضي
 
 try {
@@ -12,3 +12,5 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
+raki sure dak mdps ? drtih f postgres wh ki tl3 gli diri mdps drt da
+ok

@@ -3,69 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription Médecin</title>
+    <title>Inscription Pédiatre</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
-<body class="bg-gray-900 text-gray-100 h-screen flex justify-center items-center">
+<body class="bg-gray-900 text-gray-100 min-h-screen py-8 flex justify-center items-center">
+
     <div class="container mx-auto p-4 md:p-6 lg:p-8 flex flex-col items-center">
-        <h1 class="text-5xl text-blue-500 mb-8">Inscription Médecin</h1>
+        <!-- Titre principal bien visible -->
+        <div class="title-container">
+        <h1 class="text-4xl font-bold text-blue-500 mb-8">
+            <i class="fas fa-user-md mr-3"></i>Inscription Médecin
+        </h1>
 
         <!-- Formulaire d'inscription -->
-        <form action="enregistrer-medecin.php" method="POST">
-            <!-- Champ Nom -->
+        <form action="process_register_pediatrician.php" method="POST" class="w-full max-w-md">
+            <!-- Champ Nom complet -->
             <div class="mb-6">
-                <label for="nom" class="block text-gray-100 text-lg mb-2">Nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required
-                       class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <!-- Champ Prénom -->
-            <div class="mb-6">
-                <label for="prenom" class="block text-gray-100 text-lg mb-2">Prénom</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required
+                <label for="name" class="block text-gray-100 text-lg mb-2">Nom complet</label>
+                <input type="text" id="name" name="name" placeholder="Dr. Dupont Jean" required
                        class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <!-- Champ Email -->
             <div class="mb-6">
-                <label for="email" class="block text-gray-100 text-lg mb-2">Adresse e-mail</label>
-                <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required
+                <label for="email" class="block text-gray-100 text-lg mb-2">Adresse e-mail professionnelle</label>
+                <input type="email" id="email" name="email" placeholder="exemple@hopital.com" required
                        class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
             <!-- Champ Mot de passe -->
             <div class="mb-6">
                 <label for="password" class="block text-gray-100 text-lg mb-2">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="********" required
+                <div class="relative">
+                    <input type="password" id="password" name="password" placeholder="********" required
+                           class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="button" onclick="togglePasswordVisibility()"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200">
+                        <i id="eye-icon" class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">8 caractères minimum, avec majuscule et chiffre</p>
+            </div>
+
+            <!-- Champ Hôpital/Clinique -->
+            <div class="mb-6">
+                <label for="hospital" class="block text-gray-100 text-lg mb-2">Établissement médical</label>
+                <input type="text" id="hospital" name="hospital" placeholder="Hôpital Necker, Paris" required
                        class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <!-- Champ Spécialité -->
+            <!-- Champ Numéro RPPS -->
             <div class="mb-6">
-                <label for="specialite" class="block text-gray-100 text-lg mb-2">Spécialité</label>
-                <input type="text" id="specialite" name="specialite" placeholder="Votre spécialité" required
+                <label for="rpps_number" class="block text-gray-100 text-lg mb-2">Numéro RPPS</label>
+                <input type="text" id="rpps_number" name="rpps_number" placeholder="12345678901" required
                        class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <p class="text-xs text-gray-400 mt-1">Votre numéro d'identification professionnel</p>
             </div>
 
-            <!-- Champ Numéro de licence -->
+            <!-- Checkbox pour accepter les conditions -->
             <div class="mb-6">
-                <label for="numero_licence" class="block text-gray-100 text-lg mb-2">Numéro de licence</label>
-                <input type="text" id="numero_licence" name="numero_licence" placeholder="Votre numéro de licence" required
-                       class="w-full px-4 py-2 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="flex items-center">
+                    <input type="checkbox" name="terms" required
+                           class="rounded bg-gray-700 border-gray-600 text-blue-500 focus:ring-blue-500">
+                    <span class="ml-2 text-gray-300">J'accepte les <a href="#" class="text-blue-400 hover:underline">conditions d'utilisation</a></span>
+                </label>
             </div>
 
             <!-- Bouton de soumission -->
-            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                S'inscrire
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+                S'inscrire en tant que pédiatre
             </button>
         </form>
 
-        
-        <!-- Lien pour revenir à la page d'inscription principale -->
-        <a href="index.html" class="text-blue-500 hover:text-blue-700 text-lg mt-6">
-            <i class="fas fa-arrow-left mr-2"></i> Retour à la page d'inscription
+        <!-- Lien pour revenir à la page d'accueil -->
+        <a href="index.html" class="text-blue-500 hover:text-blue-400 text-lg mt-6 transition duration-200">
+            <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
         </a>
-      
     </div>
+
+    <script>
+        // Fonction pour afficher/masquer le mot de passe
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Validation du formulaire
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            
+            // Validation simple du mot de passe
+            if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+                event.preventDefault();
+                alert('Le mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre.');
+            }
+        });
+    </script>
 </body>
 </html>

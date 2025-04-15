@@ -4,61 +4,45 @@ ini_set('display_errors', 1);
 
 include 'db.php';
 
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
+// Récupération des données du formulaire
+$name = $_POST['name'];
 $email = $_POST['email'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$enfant_nom = $_POST['enfant-nom'];
-$enfant_age = $_POST['enfant-age'];
 
 try {
-    // Insérer dans parents
-    $sql = "INSERT INTO parents (nom, prenom, email, password, enfant_nom, enfant_age)
-            VALUES (:nom, :prenom, :email, :password, :enfant_nom, :enfant_age)
-            RETURNING id";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([
-        ':nom' => $nom,
-        ':prenom' => $prenom,
-        ':email' => $email,
-        ':password' => $password,
-        ':enfant_nom' => $enfant_nom,
-        ':enfant_age' => $enfant_age
-    ]);
-
-    // Récupérer l'ID du parent inséré
-    $parent_id = $stmt->fetchColumn();
-
-    $vaccins = [
-        ['Vaccin 3 mois', 3],
-        ['Vaccin 6 mois', 6],
-        ['Vaccin 12 mois', 12],
-    ];
-
-    foreach ($vaccins as $vaccin) {
-        $nom_vaccin = $vaccin[0];
-        $age_vaccin = $vaccin[1];
-
-        $date_vaccin = date('Y-m-d', strtotime("+$age_vaccin months", strtotime("-$enfant_age months")));
-
-        $sql_vaccin = "INSERT INTO vaccins (parent_id, nom_vaccin, age_vaccin, date_vaccin)
-                       VALUES (:parent_id, :nom_vaccin, :age_vaccin, :date_vaccin)";
-        $stmt_vaccin = $conn->prepare($sql_vaccin);
-        $stmt_vaccin->execute([
-            ':parent_id' => $parent_id,
-            ':nom_vaccin' => $nom_vaccin,
-            ':age_vaccin' => $age_vaccin,
-            ':date_vaccin' => $date_vaccin
-        ]);
+    // Vérifier si l'email existe déjà
+    $stmt = $conn->prepare("SELECT id FROM parents WHERE email = :email");
+    $stmt->execute([':email' => $email]);
+    
+    if ($stmt->rowCount() > 0) {
+        header("Location: register_parent.php?error=email_exists");
+        exit();
     }
 
-    echo "<script>
-        localStorage.setItem('username', '" . addslashes($prenom) . "');
-        window.location.href = '../index.html';
-    </script>";
+    // Insérer le parent dans la table parents
+    $sql = "INSERT INTO parents (name, email, password) 
+            VALUES (:name, :email, :password)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([
+        ':name' => $name,
+        ':email' => $email,
+        ':password' => $password
+    ]);
+    
+    // Démarrer la session et stocker l'ID du parent
+    session_start();
+    $_SESSION['parent_id'] = $conn->lastInsertId();
+    $_SESSION['parent_name'] = $name;
+    $_SESSION['parent_email'] = $email;
+
+    // Rediriger vers la page d'ajout d'enfant
+    header("Location: add_child.php");
     exit();
 
 } catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
+    // Journaliser l'erreur et rediriger
+    error_log("Erreur d'inscription: " . $e->getMessage());
+    header("Location: register_parent.php?error=database");
+    exit();
 }
 ?>
