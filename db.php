@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db   = 'vaccins'; // اسم قاعدة البيانات في PostgreSQL
 $user = 'postgres';
-$pass = 'lydialydia7@'; // ضع كلمة مرور PostgreSQL هنا
+$pass = 'admin123'; // ضع كلمة مرور PostgreSQL هنا
 $port = '5432'; // المنفذ الافتراضي
 
 try {
