@@ -12,5 +12,3 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
-raki sure dak mdps ? drtih f postgres wh ki tl3 gli diri mdps drt da
-ok
